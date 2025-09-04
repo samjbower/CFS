@@ -2,62 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>CFS: The lifebood of the Roaring Fork</title>
+  <title>Roaring Fork — Flask + D3</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-
-  <!-- App CSS -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   <div class="wrap">
     <div class="panels">
+      <!-- MAP STEP 1 -->
       <div class="step is-active" data-key="twinlakes">
         <h2>Twin Lakes Tunnel Diversion</h2>
         <div class="meta">data: CDSS <code>TWITUNCO</code></div>
-        <p>Value shows the current CFS. Small number with arrow shows the current trend. Chart shows the last ~2 days (raw + 1-hr MA).</p>
+        <p>Value shows the current CFS. Small number with arrow shows the trend. Chart shows the last ~2 days (raw + 1-hr MA).</p>
         <div class="statcard" id="stat-twinlakes"></div>
         <div class="chart" id="chart-twinlakes"></div>
       </div>
+      <!-- STORY STEP 1 -->
+      <div class="step story" data-key="twinlakes-story">
+        <h2>Background: Twin Lakes Tunnel</h2>
+        <p>Historical context. Historical plots.</p>
+        <p>
+           Questions I have: what is the annual water usage to the front range
+        </p>
+      </div>
 
+      <!-- MAP STEP 2 -->
       <div class="step" data-key="aspen">
         <h2>Roaring Fork near Aspen</h2>
         <div class="meta">USGS: <code>09073400</code> (00060)</div>
-        <p>Story content can go here at each location! we can use the stories to put the current CFS and historical CFS into context.</p>
+        <p>Story content goes here.</p>
         <div class="statcard" id="stat-aspen"></div>
         <div class="chart" id="chart-aspen"></div>
       </div>
+      <!-- STORY STEP 2 -->
+      <div class="step story" data-key="aspen-story">
+        <h2>Background: Aspen Reach</h2>
+        <p>Add some photos/ quotes like a news story?</p>
+        <p>Ideally there are some more interactive features in each section, like graphs 
+          of historical flow data that a user can mess around with 
+        </p>
+      </div>
 
+      <!-- MAP STEP 3 -->
       <div class="step" data-key="glenwood">
         <h2>Roaring Fork at Glenwood Springs</h2>
         <div class="meta">USGS: <code>09085000</code> (00060)</div>
-        <p>We can add historical data in too, and talk about the calls. Maybe we zoom to another location to talk about the calls?</p>
+        <p>Downstream context.</p>
         <div class="statcard" id="stat-glenwood"></div>
         <div class="chart" id="chart-glenwood"></div>
       </div>
+      <!-- STORY STEP 3 -->
+      <div class="step story" data-key="glenwood-story">
+        <h2>Background: Confluence & Ecology</h2>
+        <p>Here the Roaring Fork meets the Colorado; temperature, sediment, and habitat. good place to tie together upstream influences. NICK???</p>
+      </div>
+      <!-- <div class="step story" data-key="glenwood-story">
+        <h2>Shoshone Call</h2>
+        <p>How do we ties all of this in to the shoshone call? Maybe we create out own visual
+          like the faucet analogy, then present some historical data, then talk about the current news
+          about the Permanency project? <strong>We can end the map here and go onto a more creative/visual section?
+          </p></strong>
+        <p>
+          We could also create some sort of predictive tool about the call... i.e how much water is diverted
+          if X call happens...
+        </p>
+      </div> -->
+
+
 
       <div style="height:40vh;"></div>
     </div>
 
-    <div id="map-wrap"><div id="map"></div></div>
+    <div id="map-wrap">
+      <div id="map"></div>
+    </div>
   </div>
+<div class="step story" data-key="glenwood-story">
+  <h2>Shoshone Call</h2>
+  <p>
+    How do we tie all of this into the Shoshone call? Maybe we create our own visual
+    like the faucet analogy, then present some historical data, then talk about the current news
+    about the Permanency project. <strong>We can end the map here and go onto a more creative/visual section.</strong>
+  </p>
+  <figure class="story-figure">
+    <img
+      src="{{ url_for('static', filename='img/shoshone-cameo-combined-heat-calendar2.png') }}"
+      alt="Shoshone Hydroelectric Plant and Colorado River"
+      loading="lazy"
+      class="story-img"
+    >
+    <figcaption class="story-caption">
+      Create some sort of interactive water right calendar like above, where we can see
+      what is active now, and the interactions through history.
+    </figcaption>
+  </figure>
+  <p>
+    I think this is going to be the crux because it is hard to conceptualize
+  </p>
+</div>
 
-  <div class="hud">Scroll through the story to explore the Roaring Fork Valley.</div>
 
-  <!-- Vendor globals -->
+  <div class="hud">Scroll — map steps fly the camera; story steps show a panel over the map.</div>
+
+  <!-- Vendor -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
           crossorigin=""></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
-  <!-- App entrypoint as ES module -->
-  <script type="module" src="{{ url_for('static', filename='js/app.js') }}?v=dev"></script>
+  <!-- App (ES modules) -->
+  <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
